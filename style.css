@@ -1,0 +1,77 @@
+body{
+  background-image: url("Earth-background.png");
+  margin: auto;
+  text-align: center;
+  font-family: Cabin;
+}
+
+
+
+.contentArea{
+  justify-content: center;
+  margin: 20px 10% 20px 10%;
+  padding-top:1px;
+  padding-bottom: 10px;
+  border: 4px black solid;
+  
+}
+
+.contentArea>#images>img{
+  padding-bottom:10px;
+  max-width: 60%;
+}
+
+#images>#answerImg{
+  display: none;
+  //All images used during the quiz hidden for mobile users
+}
+
+.question{
+  padding: 10px 10px 15px 10px;
+  font-size: 30px;
+}
+
+.scoreBar>h2, h3{ 
+  margin: 5px;
+}
+
+.scoreBar>h2{
+  font-size: 25px;
+}
+
+.scoreBar>h3{
+  font-size: 15px;
+}
+
+#final{
+  font-size: 32px;
+}
+
+.answers-form{
+  font-size: 19px;
+}
+
+#keyboardUsers{
+  display: none;
+}
+
+button{
+  background-color: black;
+  color: white;
+  border-radius: 25%;
+  padding: 8px;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+@media only screen and (min-width: 600px){
+  #keyboardUsers{
+    display: inline;
+  }
+
+  #images>#answerImg{
+  display: inline;
+  max-height: 260px;
+  }
+  //All elements hidden for mobile, redisplayed when screen width exceeds 600px
+}
