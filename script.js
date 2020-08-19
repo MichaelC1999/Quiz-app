@@ -105,7 +105,7 @@ function renderAll(){
     //renders images
 }
 
-
+function nextButton(){
   $('body').on('click', '#next', event=>{
     if(questionCount<(questionKey.length-1)){
       ++questionCount
@@ -118,9 +118,7 @@ function renderAll(){
     }
     
   })
-
-
-
+}
 
 function renderQuestion(questionKey, questionCount){
   //This functions renders the text for the question
@@ -142,24 +140,23 @@ function renderAnswer(answers, questionCount){
   let currentA = answers[questionCount]
   console.log("question: "+ questionCount + " " + currentA)
 
-  
-
-  $(".answers-form").html('<form action="">'+
+  $(".answers-form").html('<form  id="checkAnswer" action="">'+
   '<legend><b>Select an answer and then click check</b></legend> '+
-  '<input type="radio" name="selection" class="selection" accesskey="1" value=0>1. '+ currentA[0] +'<br>' +
-  '<input type="radio" name="selection" class="selection" accesskey="2" value=1>2. '+ currentA[1] +'<br>' +
-  '<input type="radio" name="selection" class="selection" accesskey="3" value=2>3. '+ currentA[2] + '<br>'+
-  '<input type="radio" name="selection" class="selection" accesskey="4" value=3">4. '+ currentA[3] + '<br>'+
-
-  '<button id="checkAnswer" type="submit">Check</button>'+
-
+  '<input id="option1" required type="radio" name="selection" class="selection" accesskey="1" value=0>' +
+  '<label for="option1"> 1. '+ currentA[0] +'</label><br>' +
+  '<input id="option2" required type="radio" name="selection" class="selection" accesskey="2" value=1>' +
+  '<label for="option2"> 2. '+ currentA[1] +'</label><br>' +
+  '<input id="option3" required type="radio" name="selection" class="selection" accesskey="3" value=2>' +
+  '<label for="option3"> 3. '+ currentA[2] +'</label><br>' +
+  '<input id="option4" required type="radio" name="selection" class="selection" accesskey="4" value=3">' +
+  '<label for="option4"> 4. '+ currentA[3] +'</label><br>' +
+  '<button type="submit">Check</button>'+
 '</form>')
-
 }
   
 
-
-  $(".answers-form").on("click", "#checkAnswer", event => {
+function checkAnswer(){
+  $(".answers-form").on("submit", "#checkAnswer", event => {
     let answerValue=$('input[name="selection"]:checked').val();
     answerValue=parseInt(answerValue)
     console.log("CORRECT ANSWER: " + answers[questionCount][questionKey[questionCount].answerNumber])
@@ -189,7 +186,7 @@ function renderAnswer(answers, questionCount){
     console.log("checkAnswer finished" + questionCount)
 
   })
-
+}
 
 function correctAnswer(){
   $('.question').text("Correct!")
@@ -215,16 +212,27 @@ function finalPage(){
     //If user gets above 50%, tell them good job
   }
 
-  $('.answers-form').html('<form><button id="start" type="submit">Restart Quiz</button></form>')
+  $('.answers-form').html('<form><button id="restart" type="submit">Restart Quiz</button></form>')
   console.log("game ended")
   //Change button to restart button on the final page
+}
+
+function restartQuiz(){
+  $('.answers-form').on( 'click', '#restart', function( event ){
+    event.preventDefault();
+    currentScore = 0;
+    questionCount = 0;
+    renderAll();
+  });
 }
 
 function runQuiz(){
   //callback function
   generateStart();
   enterQuiz();
-  
+  checkAnswer();
+  nextButton();
+  restartQuiz();
 }
 
 $(runQuiz)
